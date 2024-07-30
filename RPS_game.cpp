@@ -2,76 +2,54 @@
 #include <cstdlib>
 #include <ctime>
 using namespace std;
-#define rock    1
-#define paper   2
-#define scissor  3
-
+#define ROCK 1
+#define PAPER 2
+#define SCISSOR 3
 
 int main()
 {
     int choice;
-
-    srand((unsigned int)time(0));
     bool draw = false;
-    int random = (rand() % 3) + 1; // Generate a random number
-
+    srand((unsigned int)time(0));
     do
     {
-        cout << "enter ur choice: \n 1.Rock \n 2.Paper \n 3.Scissor " << endl;
-        cin >> choice;
-        if (random == rock)
-            cout << "jarvis chose rock" << endl;
-        else if (random == paper)
-            cout << "jarvis chose paper" << endl;
-        else
-            cout << "jarvis chose scissor" << endl;
 
-        if (choice == rock && random == rock)
+        int random = ((rand() % 3) + 1); // Generating a random number
+
+        cout << "enter ur choice: \n 1.Rock \n 2.Paper \n 3.Scissor " << endl<<endl;
+        cin >> choice;
+
+        if (choice < 1 || choice > 3)
+        {
+            cout << "Invalid choice. Please enter 1, 2, or 3." << endl;
+            continue;
+        }
+
+        if (random == ROCK)
+            cout << "jarvis chose ROCK" << endl;
+        else if (random == PAPER)
+            cout << "jarvis chose PAPER" << endl;
+        else
+            cout << "jarvis chose SCISSOR" << endl;
+
+        if (choice == random)
         {
             cout << "Draw" << endl;
-            draw = true;
-            cout << "Play again" << endl;
-            cout<<endl;
         }
-        else if (choice == paper && random == paper)
+        else if ((choice == ROCK && random == PAPER) || (choice == PAPER && random == SCISSOR) || (choice == SCISSOR && random == ROCK))
         {
-            cout << "Draw" << endl;
-            draw = true;
-            cout << "Play again" << endl;
-            cout<<endl;
-        }
-        else if (choice == scissor && random == scissor)
-        {
-            cout << "Draw" << endl;
-            draw = true;
-            cout << "Play again" << endl;
-            cout<<endl;
-        }
-        else if (choice == rock && random == paper)
-        {
-            cout << "You Lose";
-        }
-        else if (choice == rock && random == scissor)
-        {
-            cout << "You won";
-        }
-        else if (choice == paper && random == scissor)
-        {
-            cout << "You Lose";
-        }
-        else if (choice == paper && random == rock)
-        {
-            cout << "You won";
-        }
-        else if (choice == scissor && random == rock)
-        {
-            cout << "You Lose";
+            cout << "You Lose"<<endl;
         }
         else
         {
-            cout << "You won";
+            cout << "You won"<<endl;
         }
         cout << endl;
+        int feedback;
+        cout << "Do You want to play again?" << endl;
+        cout << "1-YES\n0-NO"<<endl;
+        cin >> feedback;
+        draw = (feedback == 1);
     } while (draw);
 
     return 0;
